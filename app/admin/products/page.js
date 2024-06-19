@@ -151,16 +151,16 @@ function report(){
                     Product ID
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    HSN 
-                  </th>
-                  <th scope="col" className="px-6 py-3">
                     Name
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Price
+                    Branch
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Stock
+                    Semester
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Link
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Action
@@ -180,10 +180,10 @@ function report(){
                     >
                       {Product.ProductID}
                     </th>
-                    <td className="px-6 py-4">{Product.ProductHSN && Product.ProductHSN || "N.A"}</td>
                     <td className="px-6 py-4">{Product.ProductName}</td>
-                    <td className="px-6 py-4">₹{Product.ProductPrice}/-</td>
-                    <td className="px-6 py-4">{Product.ProductStock}</td>
+                    <td className="px-6 py-4">{Product.ProductBranch}</td>
+                    <td className="px-6 py-4">{Product.ProductSemester}</td>
+                    <td className="px-6 py-4">{Product.ProductLink.substring(0, 30)}</td>
                     <td className="px-6 py-4">
                       <a
                         href={`products/edit?id=${Product.ProductID}`}

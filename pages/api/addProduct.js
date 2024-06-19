@@ -48,9 +48,9 @@ const handler = async (req, res) => {
       const newProduct = new Products({
         ProductID: nextProductID,
         ProductName: req.body.ProductName,
-        ProductPrice: req.body.ProductPrice,
-        ProductStock: req.body.ProductStock,
-        ProductHSN: req.body.ProductHSN
+        ProductBranch: req.body.ProductBranch,
+        ProductSemester: req.body.ProductSemester,
+        ProductLink: req.body.ProductLink
       });
 
       await newProduct.save();

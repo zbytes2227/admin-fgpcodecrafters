@@ -418,7 +418,7 @@ const Navbar = () => {
                 </span>
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="/admin/salesman"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -467,7 +467,7 @@ const Navbar = () => {
                 </svg>
                 <span class="ms-3">All Invoices</span>
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </aside>
