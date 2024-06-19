@@ -5,29 +5,22 @@ import Papa from 'papaparse';
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const [SalesMans, setSalesMans] = useState([]);
+  const [Updates, setUpdates] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [Loading, setLoading] = useState(true)
 
   const searchQueryLowercase = searchQuery.toLowerCase();
 
-  // Filter SalesMans based on the case-insensitive search query
-  const filteredSalesMans = SalesMans.filter(
-    (card) =>
-      card.SalesManName.toLowerCase().includes(searchQueryLowercase) ||
-      card.SalesManPhone.toLowerCase().includes(searchQueryLowercase) ||
-      card.SalesManID.toLowerCase().includes(searchQueryLowercase) ||
-      card.SalesManEmail.toLowerCase().includes(searchQueryLowercase)
-  );
+
   useEffect(() => {
    auth();
     setLoading(true)
-    fetch("/api/getSalesMan")
+    fetch("/api/getUpdate")
       .then((response) => response.json())
       .then((data) => {
         setLoading(false)
         if (data.success) {
-          setSalesMans(data.SalesMans);
+          setUpdates(data.Updates);
         } else {
           console.error("API request failed");
         }
@@ -50,11 +43,11 @@ const Page = () => {
     }
   };
 
-  async function deleteMe(SalesManid) {
+  async function deleteMe(Updateid) {
     const fetch_api = await fetch("/api/delete/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({deltype : "salesman", id: SalesManid})
+      body: JSON.stringify({deltype : "update", id: Updateid})
     });
 
     const data = await fetch_api.json();
@@ -86,7 +79,7 @@ const exportToCSV = (data) => {
 };
 
 function report(){
-exportToCSV(SalesMans);
+exportToCSV(Updates);
 }
 
 
@@ -142,24 +135,21 @@ exportToCSV(SalesMans);
               </div>
             </form>
           </div>
-          <a href="salesman/add" type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">New Sales-Man</a>
+          <a href="updates/add" type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">New Update</a>
           <button onClick={report} type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Export</button>
 
-          {filteredSalesMans.length > 0 ? (
+          {Updates.length > 0 ? (
             <table className="w-full mt-3 text-sm text-left rtl:text-right text-gray-500">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    SalesMan ID
+                    Update ID
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Name
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Phone
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Email
+                    Description
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Action
@@ -167,9 +157,9 @@ exportToCSV(SalesMans);
                 </tr>
               </thead>
               <tbody>
-                {filteredSalesMans.map((SalesMan) => (
+                {Updates.map((Update) => (
                   <tr
-                    key={SalesMan._id}
+                    key={Update._id}
                     className="bg-white border-b"
                   >
                     {/* Display only the relevant columns */}
@@ -177,20 +167,19 @@ exportToCSV(SalesMans);
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                     >
-                      {SalesMan.SalesManID}
+                      {Update.UpdateID}
                     </th>
-                    <td className="px-6 py-4">{SalesMan.SalesManName}</td>
-                    <td className="px-6 py-4">{SalesMan.SalesManPhone}</td>
-                    <td className="px-6 py-4">{SalesMan.SalesManEmail}</td>
+                    <td className="px-6 py-4">{Update.UpdateTitle}</td>  
+                    <td className="px-6 py-4">{Update.UpdateDescription.substr(0,35)}....</td>
                     <td className="px-6 py-4">
                       <a
-                        href={`salesman/edit?id=${SalesMan.SalesManID}`}
+                        href={`updates/edit?id=${Update.UpdateID}`}
                         className="font-medium text-blue-600 hover:underline"
                       >
                         Edit
                       </a>
                       <a
-                      onClick={()=>(deleteMe(SalesMan.SalesManID))}
+                      onClick={()=>(deleteMe(Update.UpdateID))}
                         className="font-medium text-red-600 hover:underline"
                       >
                         {" | "}Delete

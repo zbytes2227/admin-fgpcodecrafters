@@ -1,4 +1,4 @@
-import SalesMan from "@/model/SalesMan";
+import Update from "@/model/Update";
 import connectDb from "../../middleware/mongoose";
 import { parse } from "cookie"; import jwt from "jsonwebtoken";
 
@@ -14,21 +14,21 @@ const handler = async (req, res) => {
           .json({ success: false, errors: "Unable to Authenticate" });
       }
       // Check if the request body contains the 'cardid' field
-      if (!req.body.SalesManid) {
-        return res.status(400).json({ success: false, msg: "Missing 'SalesMan ID' in the request body." });
+      if (!req.body.Updateid) {
+        return res.status(400).json({ success: false, msg: "Missing 'Update ID' in the request body." });
       }
 
-      const SalesManid = req.body.SalesManid;
+      const Updateid = req.body.Updateid;
 
       // Find the card in the database based on the provided cardid
-      const foundSalesMan = await SalesMan.findOne({ SalesManID: SalesManid });
+      const foundUpdate = await Update.findOne({ UpdateID: Updateid });
 
-      if (!foundSalesMan) {
+      if (!foundUpdate) {
         return res.status(404).json({ success: false, msg: "Card not found." });
       }
 
       // Return the details of the found card as a JSON response
-      return res.status(200).json({ success: true, SalesMan: foundSalesMan });
+      return res.status(200).json({ success: true, Update: foundUpdate });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ success: false, msg: "Server error. Contact the Developers." });
@@ -44,10 +44,10 @@ const handler = async (req, res) => {
           .json({ success: false, errors: "Unable to Authenticate" });
       }
       // Find all cards in the database
-      const allCards = await SalesMan.find({});
+      const allCards = await Update.find({});
 
       // Return the found cards as a JSON response
-      return res.status(200).json({ success: true, SalesMans: allCards });
+      return res.status(200).json({ success: true, Updates: allCards });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ success: false, msg: "Server error. Contact the Developers." });

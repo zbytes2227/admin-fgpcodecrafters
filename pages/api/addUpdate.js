@@ -1,23 +1,23 @@
 
-import SalesMan from "@/model/SalesMan";
+import Update from "@/model/Update";
 import connectDb from "../../middleware/mongoose";
 import { parse } from "cookie";
 import jwt from "jsonwebtoken";
 
-// Function to generate SalesMan ID in series
-const generateSalesManID = async () => {
+// Function to generate Update ID in series
+const generateUpdateID = async () => {
   try {
-    const highestSalesMan = await SalesMan.findOne({}, { SalesManID: 1 }).sort({ SalesManID: -1 });
+    const highestUpdate = await Update.findOne({}, { UpdateID: 1 }).sort({ UpdateID: -1 });
     let nextID;
-    if (highestSalesMan) {
-      const highestIDNumber = parseInt(highestSalesMan.SalesManID.slice(1));
+    if (highestUpdate) {
+      const highestIDNumber = parseInt(highestUpdate.UpdateID.slice(1));
       nextID = `S${(highestIDNumber + 1).toString().padStart(3, "0")}`;
     } else {
       nextID = "S001";
     }
     return nextID;
   } catch (error) {
-    throw new Error("Error generating SalesMan ID");
+    throw new Error("Error generating Update ID");
   }
 };
 
@@ -35,19 +35,19 @@ const handler = async (req, res) => {
 
       console.log(req.body);
 
-      // Generate the next SalesMan ID
-      const nextSalesManID = await generateSalesManID();
+      // Generate the next Update ID
+      const nextUpdateID = await generateUpdateID();
 
-      const newCard = new SalesMan({
-        SalesManID: nextSalesManID,
-        SalesManName: req.body.SalesManName,
-        SalesManPhone: req.body.SalesManPhone,
-        SalesManEmail: req.body.SalesManEmail,
+      const newCard = new Update({
+        UpdateID: nextUpdateID,
+        UpdateTitle: req.body.UpdateTitle,
+        UpdateDescription: req.body.UpdateDescription,
+        UpdateLink: req.body.UpdateLink
       });
 
       await newCard.save();
       console.log("okay");
-      return res.status(200).json({ success: true, msg: `${nextSalesManID} - SalesMan Added Successfully.` });
+      return res.status(200).json({ success: true, msg: `${nextUpdateID} - Update Added Successfully.` });
     } catch (err) {
       console.error(err);
       res

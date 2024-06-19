@@ -8,26 +8,28 @@ const Page = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get('id')
-  const [SalesManID, setSalesManID] = useState("");
-  const [SalesManName, setSalesManName] = useState("");
+  const [UpdateID, setUpdateID] = useState("");
+  const [UpdateTitle, setUpdateTitle] = useState("");
+  const [UpdateDescription, setUpdateDescription] = useState("");
+  const [UpdateLink, setUpdateLink] = useState("")
 
-  const [SalesManPhone, setSalesManPhone] = useState("");
-  const [SalesManEmail, setSalesManEmail] = useState("");
+
+
   const [msg, setmsg] = useState("")
 
 
 
-  function addSalesMan() {
+  function addUpdate() {
     // Fetch data from the API
     const postData = {
-      SalesManID: SalesManID,
-      SalesManName: SalesManName,
-      SalesManPhone: SalesManPhone,
-      SalesManEmail: SalesManEmail,
+      UpdateID: UpdateID,
+      UpdateTitle: UpdateTitle,
+      UpdateDescription: UpdateDescription,
+      UpdateLink:UpdateLink,
     };
 
 
-    fetch("/api/addSalesMan", {
+    fetch("/api/addUpdate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,10 +39,7 @@ const Page = () => {
       .then((data) => {
         setmsg(data.msg)
         if (data.success) {
-          console.log(data.SalesMan);
-          setSalesManName(data.SalesMan.SalesManName)
-          setSalesManPhone(data.SalesMan.SalesManPhone)
-          setSalesManEmail(data.SalesMan.SalesManEmail)
+          console.log(data.Update);
         } else {
           console.error("API request failed");
         }
@@ -73,7 +72,7 @@ const Page = () => {
     <>
       <div className="mt-20">
         <h2 className="mb-5 text-2xl font-bold text-center">
-          Add SalesMan Details
+          Add Update Details
         </h2>
       </div>
       <div class="max-w-sm mx-auto border border-3 rounded-lg p-5">
@@ -82,11 +81,11 @@ const Page = () => {
         </div>)}
         {/* <div class="mb-5">
           <label for="id" class="block mb-2 text-sm font-medium text-gray-900">
-            SalesMan ID
+            Update ID
           </label>
           <input
-            value={SalesManID}
-            onChange={(e) => setSalesManID(e.target.value)}
+            value={UpdateID}
+            onChange={(e) => setUpdateID(e.target.value)}
             type="text"
             id="id"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -98,13 +97,14 @@ const Page = () => {
             for="name"
             class="block mb-2 text-sm font-medium text-gray-900"
           >
-            Name
+            Title
           </label>
           <input
             type="text"
-            value={SalesManName}
-            onChange={(e) => setSalesManName(e.target.value)}
+            value={UpdateTitle}
+            onChange={(e) => setUpdateTitle(e.target.value)}
             id="name"
+            placeholder="Title"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-0"
             required
           />
@@ -114,31 +114,33 @@ const Page = () => {
             for="class"
             class="block mb-2 text-sm font-medium text-gray-900"
           >
-            Phone Number
+            Description
           </label>
-          <input
-            value={SalesManPhone}
-            onChange={(e) => setSalesManPhone(e.target.value)}
+          <textarea
+            value={UpdateDescription}
+            onChange={(e) => setUpdateDescription(e.target.value)}
             type="text"
             id="class"
+            rows={6}
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-0"
-            placeholder="8253873893"
+            placeholder="Your Body Goes here......."
             required
           />
         </div>
         <div class="mb-5">
           <label
-            for="Contact"
+            for="name"
             class="block mb-2 text-sm font-medium text-gray-900"
           >
-            Email
+            Link
           </label>
           <input
-            id="Contact"
-            value={SalesManEmail}
-            onChange={(e) => setSalesManEmail(e.target.value)}
+            type="text"
+            value={UpdateLink}
+            onChange={(e) => setUpdateLink(e.target.value)}
+            id="name"
+            placeholder="Optional"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-0"
-            placeholder="examplew@jf"
             required
           />
         </div>
@@ -151,7 +153,7 @@ const Page = () => {
   </div> */}
         <button
 
-          onClick={addSalesMan}
+          onClick={addUpdate}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
           Save

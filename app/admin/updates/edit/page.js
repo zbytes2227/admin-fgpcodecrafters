@@ -8,20 +8,21 @@ const Page = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get('id')
-  const [SalesManID, setSalesManID] = useState(search);
-  const [SalesManName, setSalesManName] = useState("");
-
-  const [SalesManPhone, setSalesManPhone] = useState("");
-  const [SalesManEmail, setSalesManEmail] = useState("");
+  const [UpdateID, setUpdateID] = useState(search);
+  const [UpdateLink, setUpdateLink] = useState("");
+  const [UpdateTitle, setUpdateTitle] = useState("");
+  const [UpdateDescription, setUpdateDescription] = useState("");
+  const [UpdatePhone, setUpdatePhone] = useState("");
+  const [UpdateEmail, setUpdateEmail] = useState("");
   const [msg, setmsg] = useState("")
 
   const postData = {
-    SalesManid: SalesManID,
+    Updateid: UpdateID,
     // Add other properties if needed
   };
   useEffect(() => {
     auth();
-    fetch("/api/getSalesMan", {
+    fetch("/api/getUpdate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,10 +31,10 @@ const Page = () => {
     }).then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log(data.SalesMan);
-          setSalesManName(data.SalesMan.SalesManName)
-          setSalesManPhone(data.SalesMan.SalesManPhone)
-          setSalesManEmail(data.SalesMan.SalesManEmail)
+          console.log(data.Update);
+          setUpdateTitle(data.Update.UpdateTitle)
+          setUpdateDescription(data.Update.UpdateDescription)
+          setUpdateLink(data.Update.UpdateLink)
         } else {
           console.error("API request failed");
         }
@@ -58,20 +59,20 @@ const Page = () => {
 
 
   function updateDetails() {
-    fetch("/api/editSalesMan", {
+    fetch("/api/editUpdate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ SalesManID: SalesManID, SalesManName: SalesManName, SalesManPhone: SalesManPhone, SalesManEmail: SalesManEmail }),
+      body: JSON.stringify({ UpdateID: UpdateID, UpdateTitle: UpdateTitle, UpdateDescription: UpdateDescription,UpdateLink:UpdateLink }),
     }).then((response) => response.json())
       .then((data) => {
         setmsg(data.msg)
         if (data.success) {
           console.log(data);
           setTimeout(() => {
-            window.location.href = "/admin/salesman"; // Replace "/your-target-page" with the actual target page URL
-          }, 1000);
+            window.location.href = "/admin/updates"; // Replace "/your-target-page" with the actual target page URL
+          }, 300);
         } else {
           console.error("API request failed");
         }
@@ -85,7 +86,7 @@ const Page = () => {
     <>
       <div className="mt-20">
         <h2 className="mb-5 text-2xl font-bold text-center">
-          Edit SalesMan Details
+          Edit Update Details
         </h2>
       </div>
       <div class="max-w-sm mx-auto border border-3 rounded-lg p-5">
@@ -94,10 +95,10 @@ const Page = () => {
         </div>)}
         <div class="mb-5">
           <label for="id" class="block mb-2 text-sm font-medium text-gray-900">
-            SalesMan ID
+            Update ID
           </label>
           <input
-            value={SalesManID}
+            value={UpdateID}
             type="text"
             disabled
             id="id"
@@ -110,13 +111,14 @@ const Page = () => {
             for="name"
             class="block mb-2 text-sm font-medium text-gray-900"
           >
-            Name
+            Title
           </label>
           <input
             type="text"
-            value={SalesManName}
-            onChange={(e) => setSalesManName(e.target.value)}
+            value={UpdateTitle}
+            onChange={(e) => setUpdateTitle(e.target.value)}
             id="name"
+            placeholder="Title"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-0"
             required
           />
@@ -126,34 +128,39 @@ const Page = () => {
             for="class"
             class="block mb-2 text-sm font-medium text-gray-900"
           >
-            Phone Number
+            Description
           </label>
-          <input
-            value={SalesManPhone}
-            onChange={(e) => setSalesManPhone(e.target.value)}
+          <textarea
+            value={UpdateDescription}
+            onChange={(e) => setUpdateDescription(e.target.value)}
             type="text"
             id="class"
+            rows={6}
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-0"
-            placeholder="10A"
+            placeholder="Your Body Goes here......."
             required
           />
         </div>
+
+
         <div class="mb-5">
           <label
-            for="Contact"
+            for="name"
             class="block mb-2 text-sm font-medium text-gray-900"
           >
-            Email
+            Link
           </label>
           <input
-            id="Contact"
-            value={SalesManEmail}
-            onChange={(e) => setSalesManEmail(e.target.value)}
+            type="text"
+            value={UpdateLink}
+            onChange={(e) => setUpdateLink(e.target.value)}
+            id="name"
+            placeholder="Optional"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-0"
-            placeholder="27657265"
             required
           />
         </div>
+
 
         {/* <div class="flex items-start mb-5">
     <div class="flex items-center h-5">
