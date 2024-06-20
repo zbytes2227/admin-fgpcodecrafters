@@ -5,8 +5,8 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Code Crfaters",
-  description: "Software",
+  title: "ADMIN Code Crfaters",
+  description: "Admin Panel for Code Crafters",
 };
 
 export default function RootLayout({ children }) {

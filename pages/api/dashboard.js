@@ -4,6 +4,7 @@ import Orders from "@/model/Orders";
 import { parse } from "cookie";  import jwt from "jsonwebtoken";
 import Products from "@/model/Products";
 import Customers from "@/model/Customers";
+import Update from "@/model/Update";
 
 
 const handler = async (req, res) => {
@@ -19,12 +20,12 @@ const handler = async (req, res) => {
       }
       // Find all cards in the database
       const allOrders = await Orders.find({});
-      const allInvoices = await Invoices.find({});
+      const allInvoices = await Update.find({});
       const allProducts = await Products.find({});
       const allCustomers = await Customers.find({});
       
       // Return the total number of orders as a JSON response
-      return res.status(200).json({ success: true, Orders: allOrders.length , Invoices: allInvoices.length, Products: allProducts.length, Customers: allCustomers.length});
+      return res.status(200).json({ success: true, Orders: allOrders.length , Updates: allInvoices.length, Products: allProducts.length, Customers: allCustomers.length});
     } catch (err) {
       console.error(err);
       return res.status(500).json({ success: false, msg: "Server error. Contact the Developers." });

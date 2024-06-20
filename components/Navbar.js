@@ -267,12 +267,12 @@ const Navbar = () => {
               </button>
               <a href="/" class="flex ms-2 md:me-24">
                 <img
-                  src="https://flowbite.com/docs/images/logo.svg"
+                  src="/192.png"
                   class="h-8 me-3"
                   alt="FlowBite Logo"
                 />
                 <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                 Code Crafters
+                 Admin CodeCrafters
                 </span>
               </a>
             </div>
@@ -312,33 +312,6 @@ const Navbar = () => {
                     </p>
                   </div>
                   <ul class="py-1" role="none">
-                    <li>
-                      <a
-                        href="/admin/trackings"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                        role="menuitem"
-                      >
-                        All Trackings
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/admin/payments"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                        role="menuitem"
-                      >
-                        All Payments
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/admin/balances"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                        role="menuitem"
-                      >
-                     All Balances
-                      </a>
-                    </li>
                     <li>
                       <a
                         onClick={handleLogout}
