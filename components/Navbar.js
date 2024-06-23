@@ -308,11 +308,11 @@ const Navbar = () => {
                       class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                       role="none"
                     >
-                      toCode Crafters@gmail.com
+                      toCodeCrafters@gmail.com
                     </p>
                   </div>
                   <ul class="py-1" role="none">
-                    <li>
+                    {/* <li>
                       <a
                         onClick={handleLogout}
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -320,7 +320,7 @@ const Navbar = () => {
                       >
                         Sign out
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                   </div>
                   </div>
